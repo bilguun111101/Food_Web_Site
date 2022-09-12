@@ -1,12 +1,11 @@
-import logo from "./logo.svg";
 import "./App.css";
-import All from "./components/All";
+import PersistentDrawerLeft from "./components/Navbar/Navbar";
 
 function App() {
   return (
-    <div>
-      <All />
-    </div>
+    <>
+      <PersistentDrawerLeft />
+    </>
   );
 }
 
