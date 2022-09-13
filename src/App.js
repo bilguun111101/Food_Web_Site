@@ -1,10 +1,12 @@
 import "./App.css";
+import All from "./components/All";
 import PersistentDrawerLeft from "./components/Navbar/Navbar";
 
 function App() {
   return (
     <>
-      <PersistentDrawerLeft />
+      {/* <PersistentDrawerLeft /> */}
+      <All />
     </>
   );
 }
