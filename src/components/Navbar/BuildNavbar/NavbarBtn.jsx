@@ -4,24 +4,28 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { Link } from "react-router-dom";
+import { Typography } from "@mui/material";
+import { useTopTittleContext } from "../../../context";
+
+const style = { color: "#FFF", textDecoration: "none", display: "flex", alignItems: "center", width: "100%", gap: "10px" }
 
 const NavbarBtn = (props) => {
+  const { title, setTitle } = useTopTittleContext();
   return (
-    <Link to={props.data.path} sx={{ color: "#FFF", textDecoration: "none" }}>
       <ListItem disablePadding>
         <ListItemButton>
           <ListItemIcon>
             <Link
               to={props.data.path}
-              sx={{ color: "#FFF", textDirection: "none" }}
+              style={style}
+              onClick={() => setTitle(props.data.name)}
             >
               {props.data.icon}
+              <Typography sx={{color: "#FFF", textDecoration: "none"}}>{props.data.name}</Typography>
             </Link>
           </ListItemIcon>
-          <ListItemText primary={props.data.name} sx={{ color: "#FFF" }} />
         </ListItemButton>
       </ListItem>
-    </Link>
   );
 };
 

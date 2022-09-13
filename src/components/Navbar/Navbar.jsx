@@ -28,6 +28,7 @@ import { navbarBtns } from "./NavbarBtns";
 import { AppBar, Main, DrawerHeader, styles } from "./NavbarStyles";
 import { CardMedia } from "@mui/material";
 import logo from "../../images/Logo.png";
+import { useTopTittleContext } from "../../context";
 
 const drawerWidth = 240;
 
@@ -36,11 +37,14 @@ export default function PersistentDrawerLeft() {
   const [open, setOpen] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
   const [date, setDate] = useState("2 сарын 7-14");
+  const { title } = useTopTittleContext();
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="sticky" open={open}>
+      <AppBar 
+        position="fixed"
+        open={open}>
         <Toolbar sx={styles.topNavbar}>
           <Toolbar sx={{ gap: "2em" }}>
             <Typography
@@ -49,7 +53,7 @@ export default function PersistentDrawerLeft() {
               component="div"
               sx={{ color: "#000" }}
             >
-              Захиалга
+              {title}
             </Typography>
           </Toolbar>
 
