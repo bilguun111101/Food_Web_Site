@@ -27,6 +27,7 @@ import { AppBar, Main, DrawerHeader, styles } from "./NavbarStyles";
 import { CardMedia } from "@mui/material";
 import logo from "../../images/Logo.png";
 import { useTopTittleContext } from "../../context";
+import { useSearchContext } from "../../searchContext";
 
 const drawerWidth = 240;
 
@@ -35,6 +36,7 @@ export default function PersistentDrawerLeft() {
   const [open, setOpen] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
   const { title } = useTopTittleContext();
+  const { setSearch } = useSearchContext();
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -61,6 +63,7 @@ export default function PersistentDrawerLeft() {
                 id="outlined-basic"
                 label="Search"
                 variant="outlined"
+                onChange={e => setSearch(e.target.value)}
                 sx={openSearch ? { display: "block" } : { display: "none" }}
               />
             </Box>

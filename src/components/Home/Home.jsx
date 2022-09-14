@@ -15,10 +15,12 @@ import { useEffect } from "react";
 import useGetData from "../TakeData";
 import { useTopTittleContext } from "../../context";
 import SimpleBackdrop from "./Foods/Order/OrderFood";
+import { useSearchContext } from "../../searchContext";
 
 const Home = (props) => {
   const [data, setData] = useState([]);
   // const { loading } = useTopTittleContext();
+  const { search } = useSearchContext();
   const [loading, setLoading] = useState(false);
   const saveData = useGetData("foods");
 
@@ -60,9 +62,11 @@ const Home = (props) => {
                 </Box>
               </Box>
             </Card>
-            {data.map((el, idx) => (
-              <Food key={idx} data={el} />
-            ))}
+            {data.filter((el, idx) => {
+              if(search === '') return el;
+              else if(el.name.includes(search)) return el;
+            }).map((el, idx) => <Food key={idx} data={el} />)
+            }
             <SimpleBackdrop />
           </>
         )}

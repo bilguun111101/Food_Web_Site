@@ -15,7 +15,7 @@ export const styles = {
     overflow: "scroll",
     gap: "1em",
   },
-  foodsSection: {
+  foodsSection: theme => ({
     display: "flex",
     width: "100vw",
     minHeight: "50vh",
@@ -23,8 +23,16 @@ export const styles = {
     gap: "1em",
     padding: "4em",
     justifyContent: "center",
-  },
-  cardSection: {
+    [theme.breakpoints.down("md")]: {
+      padding: "2em"
+    },
+    [theme.breakpoints.down("sm")]: {
+      // width: "190px",
+      padding: "0em",
+      gap: "5px"
+    },
+  }),
+  cardSection: theme => ({
     width: "240px",
     backgroundColor: "#F5F5F7",
     flexDirection: "column",
@@ -33,13 +41,19 @@ export const styles = {
     position: "relative",
     boxShadow: "none",
     borderBottom: "1px solid silver",
-  },
-  img: {
+    [theme.breakpoints.down("sm")]: {
+      width: "190px",
+    }
+  }),
+  img: theme => ({
     width: "70%",
     borderRadius: "50%",
     zIndex: "10",
     position: "absolute",
-  },
+    [theme.breakpoints.down("sm")]: {
+      width: "50%"
+    }
+  }),
   foodImpormation: {
     padding: "1em",
     width: "100%",

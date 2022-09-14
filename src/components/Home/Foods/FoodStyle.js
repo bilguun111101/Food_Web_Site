@@ -1,5 +1,5 @@
 export const styles = {
-  cardSection: {
+  cardSection: theme => ({
     width: "240px",
     backgroundColor: "#F5F5F7",
     flexDirection: "column",
@@ -8,14 +8,20 @@ export const styles = {
     position: "relative",
     boxShadow: "none",
     borderBottom: "1px solid silver",
-  },
-  img: {
+    [theme.breakpoints.down("md")]: {
+      width: "180px"
+    }
+  }),
+  img: theme => ({
     width: "70%",
     height: "158px",
     borderRadius: "50%",
     zIndex: "10",
     position: "absolute",
-  },
+    [theme.breakpoints.down("md")]: {
+      height: "40%"
+    }
+  }),
   foodImpormation: {
     padding: "1em",
     width: "100%",
