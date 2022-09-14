@@ -12,8 +12,6 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import NavbarBtn from "./BuildNavbar/NavbarBtn";
 import SearchIcon from "@mui/icons-material/Search";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import {
   FormControl,
   InputLabel,
@@ -36,25 +34,19 @@ export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
-  const [date, setDate] = useState("2 сарын 7-14");
   const { title } = useTopTittleContext();
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar 
-        position="fixed"
-        open={open}>
+      <AppBar position="fixed" open={open}>
         <Toolbar sx={styles.topNavbar}>
           <Toolbar sx={{ gap: "2em" }}>
-            <Typography
-              onClick={() => setOpen(true)}
-              variant="h6"
-              component="div"
-              sx={{ color: "#000" }}
-            >
-              {title}
-            </Typography>
+            <Button onClick={() => setOpen(true)}>
+              <Typography variant="h6" component="div" sx={{ color: "#000" }}>
+                {title}
+              </Typography>
+            </Button>
           </Toolbar>
 
           <Toolbar>
