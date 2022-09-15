@@ -5,6 +5,8 @@ import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import Home from "./Home/Home";
 import Order from "./Order/Order";
 import Chart from "./Chart/Chart";
+import LogIn from "./LogIn/LogIn";
+import SignUp from "./SignUp/SignUp";
 
 const All = (props) => {
   return (
@@ -15,7 +17,9 @@ const All = (props) => {
           <Route path="/" element={<Home />} />
           <Route path="/order" element={<Order />} />
           <Route path="/settings" />
-          <Route path="/chart" element={<Chart />}/>
+          <Route path="/chart" element={<Chart />} />
+          <Route path="/logIn" element={<LogIn />} />
+          <Route path="/signUp" element={<SignUp />} />
         </Routes>
       </Box>
     </BrowserRouter>

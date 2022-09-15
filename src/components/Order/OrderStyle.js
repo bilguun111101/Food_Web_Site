@@ -1,0 +1,40 @@
+export const styles = {
+  weekSection: {
+    background: "#F5F5F7",
+    width: "100vw",
+    minHeight: "100vh",
+    paddingTop: "5.2em",
+  },
+  daySection: {
+    width: "100%",
+    overflow: "scroll",
+    paddingLeft: "1em",
+    paddingRight: "1em",
+    display: "flex",
+    minHeight: "40vh",
+    boxShadow: "0 0 5px silver",
+    gap: "1em",
+  },
+  dayWithCard: {
+    width: "300px",
+    height: "60vh",
+    backgroundColor: "",
+    gap: "1em",
+    padding: "1em",
+    backgroundColor: "#F5F5F7",
+    position: "relative",
+  },
+  dayTitleSection: {
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: "1em",
+    position: "sticky",
+    top: "0%",
+  },
+  orderCardSection: {
+    overflow: "scroll",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#F5F5F7",
+  },
+};
