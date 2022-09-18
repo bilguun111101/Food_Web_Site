@@ -12,7 +12,7 @@ const useGetData = (path) => {
       response.forEach((doc) => {
         setData((old) => {
           // let saveData = old;
-          return [...old, doc.data().data];
+          return [...old, {["data"]: doc.data().data, ["uid"]: doc.id}];
         });
       });
     } catch (err) {

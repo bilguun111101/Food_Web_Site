@@ -1,5 +1,5 @@
 import { useOrderContext } from "../../../../orderContext";
-import { CardMedia, Card, Button, Backdrop, Box, Input } from "@mui/material";
+import { CardMedia, Card, Button, Backdrop, Box, Input, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
 import { Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -8,46 +8,34 @@ import { SetData } from "../../../SetData";
 import { useState, useEffect, useRef } from "react";
 
 export default function SimpleBackdrop() {
-  const email = useRef(null);
-  const day = useRef(null);
-  const clock = useRef(null);
+  const phone = useRef(null);
   const ports = useRef(null);
   const address = useRef(null);
-  const month = useRef(null);
   const [setBool, setSetBool] = useState(false);
+  const [dayTime, setDayTime] = useState("");
+  const [week, setWeek] = useState("");
   const { booleanDet, setBooleanDet, orderDetail, setOrderDetail } =
     useOrderContext();
   const handleClose = () => {
     setBooleanDet(false);
   };
-  const handleToggle = () => {
-    setBooleanDet(true);
+  // ----------------
+
+  const handleWeek = (event) => {
+    setWeek(event.target.value);
   };
+  const handleTime = e => {
+    setDayTime(e.target.value);
+  }
+  // =================
+
   const handleOrder = () => {
-    if (
-      !email.current.value.includes("@") ||
-      email.current.value.lenght <= 2 ||
-      ports.current.value === "" ||
-      address.current.value.lenght <= 5 ||
-      month.current.value === "" ||
-      clock.current.value === "" ||
-      day.current.value === ""
-    ) {
-      alert("Мэдээлэл дутуу байна!!!");
-    } else {
-      const total = orderDetail.cost * +ports.current.value;
-      setOrderDetail({
-        ...orderDetail,
-        ["email"]: email.current.value,
-        ["quantity"]: ports.current.value,
-        ["address"]: address.current.value,
-        ["month"]: month.current.value,
-        ["clock"]: clock.current.value,
-        ["day"]: day.current.value,
-        ["total"]: total,
-      });
-      setSetBool(true);
+    if(phone.current.value.length !== 8 || ports.current.value === '' || address.current.value === "" || dayTime === "" || week === "") {
+      alert("Мэдээлэл дутуу байна!!!")
+      return;
     }
+    setOrderDetail({...orderDetail, ["ports"]: ports.current.value, ["phone"]: phone.current.value, ["address"]: address.current.value, ["dayTime"]: dayTime, ["week"]: week})
+    setSetBool(true);
   };
 
   useEffect(() => {
@@ -56,11 +44,8 @@ export default function SimpleBackdrop() {
       setSetBool(false);
       setBooleanDet(false);
       ports.current.value = "";
-      email.current.value = "";
+      phone.current.value = "";
       address.current.value = "";
-      month.current.value = "";
-      clock.current.value = "";
-      day.current.value = "";
     }
   }, [setBool]);
 
@@ -85,17 +70,48 @@ export default function SimpleBackdrop() {
               {orderDetail.name}
             </Typography>
             <Box sx={styles.getImpormation}>
-              <Input type="email" placeholder="Email..." inputRef={email} />
+              <Input type="number" placeholder="Утас..." inputRef={phone} />
               <Input
                 type="number"
                 placeholder="Хэдэн хүний порц..."
                 inputRef={ports}
               />
               <Input placeholder="Гэрийн хаяг..." inputRef={address} />
-              <Box sx={{ display: "flex", gap: "20px" }}>
-                <Input type="number" placeholder="Сар..." inputRef={month} />
-                <Input type="number" placeholder="Өдөр..." inputRef={day} />
-                <Input type="number" placeholder="Цаг..." inputRef={clock} />
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Хэд дэхь өдөр</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={week}
+                    label="Хэд дэхь өдөр"
+                    onChange={handleWeek}
+                  >
+                    <MenuItem value={`Даваа`}>Даваа</MenuItem>
+                    <MenuItem value={`Мягмар`}>Мягмар</MenuItem>
+                    <MenuItem value={`Лхагва`}>Лхагва</MenuItem>
+                    <MenuItem value={`Пүрэв`}>Пүрэв</MenuItem>
+                    <MenuItem value={`Баасан`}>Баасан</MenuItem>
+                    <MenuItem value={`Бямба`}>Бямба</MenuItem>
+                    <MenuItem value={`Ням`}>Ням</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Хэдий үед</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={dayTime}
+                    label="Хэдий үед"
+                    onChange={handleTime}
+                  >
+                    <MenuItem value={`Өглөө`}>Өглөө</MenuItem>
+                    <MenuItem value={`Өдөр`}>Өдөр</MenuItem>
+                    <MenuItem value={`Орой`}>Орой</MenuItem>
+                  </Select>
+                </FormControl>
               </Box>
               <Box
                 sx={{

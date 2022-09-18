@@ -34,12 +34,13 @@ const Home = (props) => {
   useEffect(() => {
     setData(saveData);
   }, [saveData]);
+  console.log(data)
 
   return (
     <Box sx={styles.topBox}>
       <Box sx={styles.rightScroll}>
         {data.map((el, idx) => (
-          <MediaCard key={idx} data={el} />
+          <MediaCard key={idx} data={el.data} />
         ))}
       </Box>
 
@@ -49,18 +50,15 @@ const Home = (props) => {
         ) : (
           <>
             <AddFood setAdd={add} add={addBoolean} />
-            {/* <BuildAddFood /> */}
-            {/* {addBoolean ? } */}
             {data
               .filter((el, idx) => {
                 if (search === "") return el;
                 else if (el.name.includes(search)) return el;
               })
               .map((el, idx) => (
-                <Food key={idx} data={el} />
+                <Food key={idx} data={el.data} />
               ))}
             <SimpleBackdrop />
-            {/* <BuildAddFood /> */}
           </>
         )}
       </Box>

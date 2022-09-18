@@ -15,32 +15,33 @@ import {
   AccordionDetails,
 } from "./BuildOrderStyle";
 
-export default function CustomizedAccordions() {
-  const [expanded, setExpanded] = useState("panel1");
+export default function CustomizedAccordions(props) {
+  const [expanded, setExpanded] = useState(false);
+  const propsy = props.data;
 
   const [checked, setChecked] = useState([0]);
 
-  const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
+  const handleChange = () => {
+    setExpanded(!expanded);
   };
 
   return (
     <Accordion
-      expanded={expanded === "panel1"}
-      onChange={handleChange("panel1")}
-      sx={{ marginBottom: "1em", backgroundColor: "pink", borderRadius: "1em" }}
+      expanded={expanded}
+      onChange={handleChange}
+      sx={{ marginBottom: "1em", backgroundColor: "#FFF", borderBottom: "1px solid silver" }}
     >
       <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-        <Typography>Өглөө</Typography>
+        <Typography>{propsy.dayTime}</Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Box>
           <List
-            sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+            sx={{ width: "100%", maxWidth: 360, bgcolor: "#FFF", borderBottom: "1px solid silver" }}
           >
             {/* ы */}
             <ListItem
-              secondaryAction={<ListItemText primary={`x2`} />}
+              secondaryAction={<ListItemText primary={`x${propsy.quantity}`} />}
               disablePadding
             >
               <ListItemButton role={undefined} dense>
@@ -52,7 +53,7 @@ export default function CustomizedAccordions() {
                     disableRipple
                   />
                 </ListItemIcon>
-                <ListItemText primary={`Кимчи Жигээ`} />
+                <ListItemText primary={propsy.name} />
               </ListItemButton>
             </ListItem>
           </List>
@@ -66,12 +67,12 @@ export default function CustomizedAccordions() {
           >
             <ListItem sx={{ gap: "1em" }}>
               <LocationOnIcon sx={{ color: "#09C900" }} />
-              <ListItemText primary={`СБД 7р хороо 4 байр 89 тоот`} />
+              <ListItemText primary={propsy.address} />
             </ListItem>
-            <ListItem sx={{ gap: "1em" }}>
+            {/* <ListItem sx={{ gap: "1em" }}>
               <LocalPhoneIcon sx={{ color: "#09C900" }} />
               <ListItemText primary={`СБД 7р хороо 4 байр 89 тоот`} />
-            </ListItem>
+            </ListItem> */}
           </List>
         </Box>
       </AccordionDetails>

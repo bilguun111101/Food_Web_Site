@@ -35,11 +35,6 @@ export default function BuildAddFood(props) {
                 inputRef={{}}
               />
               <Input placeholder="Гэрийн хаяг..." inputRef={{}} />
-              <Box sx={{ display: "flex", gap: "20px" }}>
-                <Input type="number" placeholder="Сар..." inputRef={{}} />
-                <Input type="number" placeholder="Өдөр..." inputRef={{}} />
-                <Input type="number" placeholder="Цаг..." inputRef={{}} />
-              </Box>
               <Box
                 sx={{
                   display: "flex",

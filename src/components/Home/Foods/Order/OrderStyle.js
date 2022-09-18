@@ -1,12 +1,18 @@
 export const styles = {
-  cardSection: {
+  cardSection: theme => ({
     minWidth: "300px",
-    width: "40%",
-    height: "50vh",
+    width: "50%",
+    height: "auto",
     display: "flex",
     padding: "2em",
     position: "relative",
-  },
+    [theme.breakpoints.down("lg")]: {
+      width: "70%"
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "100%"
+    },
+  }),
   closeBtn: {
     color: "#000",
     position: "absolute",

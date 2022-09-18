@@ -6,19 +6,19 @@ export const styles = {
     paddingTop: "5.2em",
   },
   daySection: {
-    width: "100%",
-    overflow: "scroll",
-    paddingLeft: "1em",
-    paddingRight: "1em",
+    width: "100vw",
+    borderBottom: "1px solid silver",
+    borderTop: "1px solid silver",
     display: "flex",
-    minHeight: "40vh",
-    boxShadow: "0 0 5px silver",
+    paddingLeft: "1em",
+    paddingBottom: "1em",
+    overflow: "scroll",
     gap: "1em",
   },
   dayWithCard: {
-    width: "300px",
+    minWidth: "300px",
     height: "60vh",
-    backgroundColor: "",
+    backgroundColor: "transparent",
     gap: "1em",
     padding: "1em",
     backgroundColor: "#F5F5F7",
@@ -37,4 +37,30 @@ export const styles = {
     height: "100%",
     backgroundColor: "#F5F5F7",
   },
+  packedSection: {
+    width: "100vw",
+    borderBottom: "1px solid silver",
+    gap: "1em",
+    position: "relative",
+    marginTop: "2em",
+    border: "1px solid silver",
+    // backgroundColor: "#FFF9F1"
+  },
+  packedTitle: {
+    position: "sticky",
+    top: "0%",
+    width: "100%",
+    padding: "1em 0"
+  },
+  packedSectionWithin: {
+    width: "100vw",
+    borderBottom: "1px solid silver",
+    display: "flex",
+    paddingLeft: "1em",
+    paddingBottom: "1em",
+    overflow: "scroll",
+    gap: "1em",
+    position: "relative",
+    backgroundColor: "#FFF9F1"
+  }
 };
