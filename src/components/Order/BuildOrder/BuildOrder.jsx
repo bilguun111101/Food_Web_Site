@@ -29,7 +29,11 @@ export default function CustomizedAccordions(props) {
     <Accordion
       expanded={expanded}
       onChange={handleChange}
-      sx={{ marginBottom: "1em", backgroundColor: "#FFF", borderBottom: "1px solid silver" }}
+      sx={{
+        marginBottom: "1em",
+        backgroundColor: "#FFF",
+        borderBottom: "1px solid silver",
+      }}
     >
       <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
         <Typography>{propsy.dayTime}</Typography>
@@ -37,7 +41,12 @@ export default function CustomizedAccordions(props) {
       <AccordionDetails>
         <Box>
           <List
-            sx={{ width: "100%", maxWidth: 360, bgcolor: "#FFF", borderBottom: "1px solid silver" }}
+            sx={{
+              width: "100%",
+              maxWidth: 360,
+              bgcolor: "#FFF",
+              borderBottom: "1px solid silver",
+            }}
           >
             {/* ы */}
             <ListItem
@@ -69,10 +78,6 @@ export default function CustomizedAccordions(props) {
               <LocationOnIcon sx={{ color: "#09C900" }} />
               <ListItemText primary={propsy.address} />
             </ListItem>
-            {/* <ListItem sx={{ gap: "1em" }}>
-              <LocalPhoneIcon sx={{ color: "#09C900" }} />
-              <ListItemText primary={`СБД 7р хороо 4 байр 89 тоот`} />
-            </ListItem> */}
           </List>
         </Box>
       </AccordionDetails>

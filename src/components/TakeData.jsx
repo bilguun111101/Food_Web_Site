@@ -11,13 +11,10 @@ const useGetData = (path) => {
       const response = await getDocs(collection(db, path));
       response.forEach((doc) => {
         setData((old) => {
-          // let saveData = old;
-          return [...old, {["data"]: doc.data().data, ["uid"]: doc.id}];
+          return [...old, { data: doc.data().data, uid: doc.id }];
         });
       });
-    } catch (err) {
-      console.log(err.message);
-    }
+    } catch (err) {}
   };
   useEffect(() => {
     connect();
