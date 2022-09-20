@@ -6,7 +6,7 @@ import { styles } from "./OrderStyle";
 import useGetData from "../TakeData";
 import { useState, useEffect } from "react";
 import { useTopTittleContext } from "../../context";
-import { doc, collection, getDocs } from "firebase/firestore";
+import { doc, collection, getDocs, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase";
 
 const Order = (props) => {
@@ -14,55 +14,30 @@ const Order = (props) => {
   const [orders, setOrders] = useState([]);
   const [data, setData] = useState([]);
 
-  const days = [
-    { week: `Даваа`, datas: [] },
-    { week: `Мягмар`, datas: [] },
-    { week: `Лхагва`, datas: [] },
-    { week: `Пүрэв`, datas: [] },
-    { week: `Баасан`, datas: [] },
-    { week: `Бямба`, datas: [] },
-    { week: `Ням`, datas: [] },
-  ];
+  const days = [`Даваа`, `Мягмар`, `Мягмар`, `Пүрэв`, `Баасан`, `Бямба`, `Ням`];
   const [daysDatas, setDaysDatas] = useState([]);
   const [datas, setDatas] = useState([]);
 
   useEffect(() => {
     const connect = async () => {
       try {
-        let arr = [];
-        const response = await getDocs(collection(db, "orders"));
-        response.forEach((doc) => {
-          arr.push({ data: doc.data().data, uid: doc.id });
-          // setData([...arr, { data: doc.data().data, uid: doc.id }]);
-        });
-        // console.log(arr);
-        setData((old) => (old = arr));
+        const colRef = collection(db, "orders")
+        for(let i = 0; i < days.length; i++) {
+          let q = query(colRef, where("week", "==", days[i]));
+          onSnapshot(q, (snap) => {
+            // snap.docs.forEach(doc => {
+            //   setData([...data, doc.data()]);
+            // })
+            snap.docs.map((doc, idx) => setData([...data, {...doc.data(), uid: doc.id}]))
+            setDatas(old => [...old, { week: days[i], datas: data }])
+          })
+        }
+        console.log(datas)
       } catch (err) {
         console.log(err.message);
       }
     };
     connect();
-    if (data.length !== 0) {
-      console.log(data);
-    }
-
-    // days.forEach((el, idx) => {
-    //   data.forEach((e, i) => {
-    //     if (el.week === e.data.week) {
-    //       days[idx].datas.push(e);
-    //     }
-    //   });
-    // });
-    if (data.length !== 0) {
-      for (let i = 0; i < days.length; i++) {
-        for (let j = 0; j < data.length; j++) {
-          if (days[i].week === data[j].data.week) {
-            days[i].datas.push(data[j]);
-          }
-        }
-      }
-      console.log(days);
-    }
   }, []);
 
   return (
