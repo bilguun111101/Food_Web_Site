@@ -12,6 +12,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import NavbarBtn from "./BuildNavbar/NavbarBtn";
 import SearchIcon from "@mui/icons-material/Search";
+import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
 import {
   FormControl,
   InputLabel,
@@ -28,6 +29,7 @@ import { CardMedia } from "@mui/material";
 import logo from "../../images/Logo.png";
 import { useTopTittleContext } from "../../context";
 import { useSearchContext } from "../../searchContext";
+import { useSignContext } from "../../SignContext";
 
 const drawerWidth = 240;
 
@@ -37,6 +39,7 @@ export default function PersistentDrawerLeft() {
   const [openSearch, setOpenSearch] = useState(false);
   const { title } = useTopTittleContext();
   const { setSearch } = useSearchContext();
+  const { signBool } = useSignContext();
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -98,9 +101,20 @@ export default function PersistentDrawerLeft() {
         </Box>
         <Divider />
         <List>
-          {navbarBtns.map((text, index) => (
+          {navbarBtns.map((text, index) => {
+            if(text.name === navbarBtns[navbarBtns.length - 1].name) {
+              const signOut = {
+                name: "Гарах",
+                path: "/",
+                icon: <AssignmentReturnIcon />
+              }
+              return (
+                <NavbarBtn data={!signBool ? text : signOut} index={index} key={index} />
+              )
+            }
+            return (
             <NavbarBtn data={text} index={index} key={index} />
-          ))}
+          )})}
         </List>
         <Divider />
       </Drawer>

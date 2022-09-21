@@ -50,7 +50,7 @@ export default function CustomizedAccordions(props) {
           >
             {/* ы */}
             <ListItem
-              secondaryAction={<ListItemText primary={`x${propsy.quantity}`} />}
+              secondaryAction={<ListItemText primary={`x${propsy.ports}`} />}
               disablePadding
             >
               <ListItemButton role={undefined} dense>

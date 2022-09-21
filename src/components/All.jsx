@@ -7,8 +7,10 @@ import Order from "./Order/Order";
 import Chart from "./Chart/Chart";
 import LogIn from "./LogIn/LogIn";
 import SignUp from "./SignUp/SignUp";
+import { useSignContext } from "../SignContext";
 
 const All = (props) => {
+  const { signBool } = useSignContext();
   return (
     <BrowserRouter>
       <PersistentDrawerLeft />
@@ -18,8 +20,10 @@ const All = (props) => {
           <Route path="/order" element={<Order />} />
           <Route path="/settings" />
           <Route path="/chart" element={<Chart />} />
-          <Route path="/logIn" element={<LogIn />} />
-          <Route path="/signUp" element={<SignUp />} />
+          {/* <Route path="/logIn" element={<LogIn />} />
+          <Route path="/signUp" element={<SignUp />} /> */}
+          {!signBool && <><Route path="/logIn" element={<LogIn />} />
+          <Route path="/signUp" element={<SignUp />} /></>}
         </Routes>
       </Box>
     </BrowserRouter>

@@ -13,17 +13,29 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Copyright from "./SignUpCopyRight";
+import { Authenticate } from "../Auth";
+import { SetData } from "../SetData";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
 export default function SignUp() {
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.get("email")) || !data.get("lastName") || !data.get("firstName") || !data.get("password")) {
+      alert("Мэдээлэлээ бүрэн зөв оруулна уу!!!")
+      return;
+    }
+    Authenticate(data.get("email"), data.get("password"))
+    const user = {
       email: data.get("email"),
-      password: data.get("password"),
-    });
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
+    }
+    SetData("user", user)
+    navigate("/logIn");
   };
 
   return (
