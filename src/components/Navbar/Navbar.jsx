@@ -12,7 +12,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import NavbarBtn from "./BuildNavbar/NavbarBtn";
 import SearchIcon from "@mui/icons-material/Search";
-import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
+import AssignmentReturnIcon from "@mui/icons-material/AssignmentReturn";
 import {
   FormControl,
   InputLabel,
@@ -39,7 +39,7 @@ export default function PersistentDrawerLeft() {
   const [openSearch, setOpenSearch] = useState(false);
   const { title } = useTopTittleContext();
   const { setSearch } = useSearchContext();
-  const { signBool } = useSignContext();
+  const { signBool, setSignBool } = useSignContext();
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -66,7 +66,7 @@ export default function PersistentDrawerLeft() {
                 id="outlined-basic"
                 label="Search"
                 variant="outlined"
-                onChange={e => setSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
                 sx={openSearch ? { display: "block" } : { display: "none" }}
               />
             </Box>
@@ -102,19 +102,30 @@ export default function PersistentDrawerLeft() {
         <Divider />
         <List>
           {navbarBtns.map((text, index) => {
-            if(text.name === navbarBtns[navbarBtns.length - 1].name) {
+            if (text.name === navbarBtns[navbarBtns.length - 1].name) {
               const signOut = {
                 name: "Гарах",
                 path: "/",
-                icon: <AssignmentReturnIcon />
-              }
+                icon: <AssignmentReturnIcon />,
+              };
               return (
-                <NavbarBtn data={!signBool ? text : signOut} index={index} key={index} />
-              )
+                <NavbarBtn
+                  data={!signBool ? text : signOut}
+                  index={index}
+                  key={index}
+                  signOut={true}
+                />
+              );
             }
             return (
-            <NavbarBtn data={text} index={index} key={index} />
-          )})}
+              <NavbarBtn
+                signOut={false}
+                data={text}
+                index={index}
+                key={index}
+              />
+            );
+          })}
         </List>
         <Divider />
       </Drawer>

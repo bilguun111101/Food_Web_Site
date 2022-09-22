@@ -24,17 +24,24 @@ export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.get("email")) || !data.get("lastName") || !data.get("firstName") || !data.get("password")) {
-      alert("Мэдээлэлээ бүрэн зөв оруулна уу!!!")
+    if (
+      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+        data.get("email")
+      ) ||
+      !data.get("lastName") ||
+      !data.get("firstName") ||
+      !data.get("password")
+    ) {
+      alert("Мэдээлэлээ бүрэн зөв оруулна уу!!!");
       return;
     }
-    Authenticate(data.get("email"), data.get("password"))
+    Authenticate(data.get("email"), data.get("password"));
     const user = {
       email: data.get("email"),
       firstName: data.get("firstName"),
       lastName: data.get("lastName"),
-    }
-    SetData("user", user)
+    };
+    SetData("user", user);
     navigate("/logIn");
   };
 
