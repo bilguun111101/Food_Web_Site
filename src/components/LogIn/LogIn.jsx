@@ -12,9 +12,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CopyRight from "./CopyRight/CopyRight";
-import { auth } from "../../firebase";
-import { signInAnonymously, signInWithEmailAndPassword } from "firebase/auth";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import useGetData from "../TakeData";
 import { useNavigate } from "react-router-dom";
 import { useSignContext } from "../../SignContext";
@@ -28,6 +26,7 @@ export default function LogIn(props) {
   const [loading, setLoading] = useState(false);
 
   const users = useGetData("user");
+  console.log(users);
   const handleSubmit = async (event) => {
     setLoading(true);
     event.preventDefault();
@@ -45,7 +44,6 @@ export default function LogIn(props) {
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
-        {/* <CssBaseline /> */}
         <Box
           sx={{
             marginTop: "10em",

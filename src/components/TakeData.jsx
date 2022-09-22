@@ -1,26 +1,29 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 import { useEffect, useState } from "react";
-import { useTopTittleContext } from "../context";
+import _ from "lodash";
 
-const useGetData = (path) => {
-  const [data, setData] = useState([]);
-  const { setLoading } = useTopTittleContext();
-  const connect = async () => {
-    try {
-      const response = await getDocs(collection(db, path));
-      response.forEach((doc) => {
-        setData((old) => {
-          return [...old, { data: doc.data().data, uid: doc.id }];
-        });
-      });
-    } catch (err) {}
-  };
+const useGetData = path => {
+  const [data, setData] = useState([])
+
   useEffect(() => {
-    connect();
-  }, []);
-  setLoading(true);
+    (async () => {
+      const getCollections = await collection(db, path);
+      onSnapshot(getCollections, (snap) => {
+        if(!_.isEmpty(snap.docs)) {
+          let data = [];
+          snap.forEach(doc => {
+            data.push({ ...doc.data(), uid: doc.id });
+          })
+          setData(data);
+        }
+      })
+
+      return () => getCollections();
+    })()
+  }, [])
+
   return data;
-};
+}
 
 export default useGetData;

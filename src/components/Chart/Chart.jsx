@@ -1,4 +1,3 @@
-// import { ThemeProvider } from "@emotion/react";
 import { Container, createTheme, Card } from "@mui/material";
 import { Box } from "@mui/system";
 import {
@@ -15,6 +14,9 @@ import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { Main } from "../Navbar/NavbarStyles";
+import { styles } from "./ChartStyle"
+import useGetData from "../TakeData";
+import _ from "lodash"
 // import faker from "faker";
 
 ChartJS.register(
@@ -92,14 +94,17 @@ const Chart = () => {
     "June",
     "July",
   ];
-  const dataNumber = [1, 2, 3, 4, 5, 6, 7];
+
+  const orders = useGetData("orders");
+  const foodNames = _.map(orders, "name");
+  const weekQuantity = _.map(orders, "ports")
 
   const data = {
-    labels,
+    foodNames,
     datasets: [
       {
-        label: "Dataset 1",
-        data: dataNumber,
+        label: "Захиалсан түүхүүд",
+        data: weekQuantity,
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
     ],
@@ -107,19 +112,23 @@ const Chart = () => {
 
   return (
     <Box
-      sx={{
-        marginTop: "10em",
-        display: "flex",
-        alignItems: "center",
-        // width: "100vw",
-        flexWrap: "wrap",
-        justifyContent: "center",
-      }}
+      sx={styles.chartContainerPage}
     >
-      <Card sx={{ width: "60%" }}>
-        <Bar options={options} data={data} />
-      </Card>
-    </Box>
+      <Grid sx={styles.chartContainer} container>
+        <Grid item sx={styles.oneChart}>
+          <Bar options={options} data={data} />
+        </Grid>
+        <Grid item sx={styles.oneChart}>
+          <Bar options={options} data={{}} />
+        </Grid>
+        <Grid item sx={styles.oneChart}>
+          <Bar options={options} data={{}} />
+        </Grid>
+        <Grid item sx={styles.oneChart}>
+          <Bar options={options} data={{}} />
+        </Grid>
+        </Grid>
+      </Box>
   );
 };
 
