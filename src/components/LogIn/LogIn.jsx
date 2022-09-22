@@ -14,30 +14,38 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CopyRight from "./CopyRight/CopyRight";
 import { auth } from "../../firebase";
 import { signInAnonymously, signInWithEmailAndPassword } from "firebase/auth";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import useGetData from "../TakeData";
 import { useNavigate } from "react-router-dom";
+import { useSignContext } from "../../SignContext";
+import { SignInAuth } from "../Auth";
 
 const theme = createTheme();
 
 export default function LogIn(props) {
   const navigate = useNavigate();
+  const { signBool, setSignBool } = useSignContext();
+  const [loading, setLoading] = useState(false);
 
   const users = useGetData("user");
   const handleSubmit = async (event) => {
+    setLoading(true);
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // await signInWithEmailAndPassword(data.get("email"), data.get("password")).then((res) => console.log(res))
-    signInWithEmailAndPassword(data.get("email"), data.get("password")).then(res => console.log(res))
-  };
-  const signIn = async (e) => {
-    // e.preventDefault();
+
+    SignInAuth(
+      data.get("email"),
+      data.get("password"),
+      setSignBool,
+      navigate,
+      setLoading
+    );
   };
 
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
+        {/* <CssBaseline /> */}
         <Box
           sx={{
             marginTop: "10em",
@@ -87,7 +95,6 @@ export default function LogIn(props) {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={signIn}
             >
               Sign In
             </Button>

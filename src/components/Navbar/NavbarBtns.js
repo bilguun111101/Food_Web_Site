@@ -8,6 +8,6 @@ export const navbarBtns = [
   { name: "Захиалга", path: "/order", icon: <BorderInnerIcon /> },
   { name: "График", path: "/chart", icon: <SignalCellularAltIcon /> },
   { name: "Тохиргоо", path: "/settings", icon: <SettingsIcon /> },
-  { name: "Мэню", path: "/", icon: <RestaurantIcon /> },
-  { name: "Нэвтрэх", path: "/logIn", icon: <LogoutIcon /> },
+  { name: "Мэню", path: "/home", icon: <RestaurantIcon /> },
+  { name: "Нэвтрэх", path: "/", icon: <LogoutIcon /> },
 ];

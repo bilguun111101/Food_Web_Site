@@ -16,14 +16,16 @@ const All = (props) => {
       <PersistentDrawerLeft />
       <Box>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/order" element={<Order />} />
           <Route path="/settings" />
           <Route path="/chart" element={<Chart />} />
-          {/* <Route path="/logIn" element={<LogIn />} />
-          <Route path="/signUp" element={<SignUp />} /> */}
-          {!signBool && <><Route path="/logIn" element={<LogIn />} />
-          <Route path="/signUp" element={<SignUp />} /></>}
+          {!signBool && (
+            <>
+              <Route path="/" element={<LogIn />} />
+              <Route path="/signUp" element={<SignUp />} />
+            </>
+          )}
         </Routes>
       </Box>
     </BrowserRouter>
