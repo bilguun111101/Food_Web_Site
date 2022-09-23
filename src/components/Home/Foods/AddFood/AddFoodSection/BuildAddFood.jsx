@@ -1,23 +1,96 @@
-import { CardMedia, Card, Button, Backdrop, Box, Input } from "@mui/material";
+import {
+  CardMedia,
+  Card,
+  Button,
+  Backdrop,
+  Box,
+  Input,
+  Select,
+  FormControl,
+  InputLabel,
+  MenuItem,
+} from "@mui/material";
 import { Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { SetData } from "../../../../SetData";
 import { useState, useEffect, useRef } from "react";
 import { styles } from "../../Order/OrderStyle";
+import { useOrderContext } from "../../../../../orderContext";
+import { secondStyle } from "./BuidAddFoodStyle";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import {
+  ref as sRef,
+  uploadBytesResumable,
+  getDownloadURL,
+  uploadBytes,
+} from "firebase/storage";
+import { storage } from "../../../../../firebase";
 
 export default function BuildAddFood(props) {
+  const { addFood, setAddFood } = useOrderContext();
+  const [imageUrl, setImageUrl] = useState();
+  const [foodType, setFoodType] = useState("");
+  const cost = useRef(null);
+  const rate = useRef(null);
+  const foodName = useRef(null);
+
+  const closeAddFoodSection = () => {
+    setAddFood(false);
+  };
+
+  const handleImageURL = (e) => {
+    let file = e.target.files[0];
+    let reader = new FileReader();
+    reader.onload = function (event) {
+      setImageUrl(event.target.result);
+    };
+    setFoodType(file);
+    reader.readAsDataURL(file);
+  };
+
+  const setHandleData = async () => {
+    console.log(foodType);
+    const storageRef = sRef(storage, `images/${foodName.current.value}`);
+    await uploadBytes(storageRef, foodType).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        // const data = {
+        //   image: url,
+        //   name: foodName.current.value,
+        //   cost: cost.current.value,
+        //   rate: rate.current.value,
+        // };
+        // SetData("foods", { image: url });
+      });
+    });
+  };
+
   return (
     <div>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={true}
+        open={addFood}
       >
         <Card sx={styles.cardSection}>
-          <Button sx={styles.closeBtn} onClick={{}}>
+          <Button sx={styles.closeBtn} onClick={closeAddFoodSection}>
             <CloseIcon sx={{ fontSize: "3em" }} />
           </Button>
-          <CardMedia image={{}} sx={styles.img} />
+          <Box sx={{ width: "50%", position: "relative" }}>
+            <CardMedia
+              component="img"
+              src={imageUrl}
+              sx={secondStyle.outInputImage}
+            />
+            <label>
+              <Input
+                sx={{ display: "none" }}
+                type="file"
+                image=""
+                onChange={handleImageURL}
+              />
+              <AddAPhotoIcon sx={secondStyle.cameraIcon} />
+            </label>
+          </Box>
           <Box
             sx={{
               width: "50%",
@@ -25,16 +98,35 @@ export default function BuildAddFood(props) {
             }}
           >
             <Typography component="div" variant="h5">
-              {{}}
+              Create food
             </Typography>
+
+            {/* Take imformation Section ---------------------------------------*/}
+
             <Box sx={styles.getImpormation}>
-              <Input type="email" placeholder="Email..." inputRef={{}} />
-              <Input
-                type="number"
-                placeholder="Хэдэн хүний порц..."
-                inputRef={{}}
-              />
-              <Input placeholder="Гэрийн хаяг..." inputRef={{}} />
+              <Input placeholder="Хоолны нэр..." inputRef={foodName} />
+              <Input placeholder="Үнэ..." inputRef={cost} />
+              <Input placeholder="Rate..." inputRef={rate} />
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Хэд дэхь өдөр
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={foodType}
+                    label="Хэд дэхь өдөр"
+                    onChange={(e) => setFoodType(e.target.value)}
+                  >
+                    <MenuItem value="Халуун ногоо">Халуун ногоо</MenuItem>
+                    <MenuItem value="Хөнгөн">Хөнгөн</MenuItem>
+                    <MenuItem value="1-р хоол">1-р хоол</MenuItem>
+                    <MenuItem value="2-р хоол">2-р хоол</MenuItem>
+                    <MenuItem value="Бусад">Бусад</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
               <Box
                 sx={{
                   display: "flex",
@@ -42,7 +134,7 @@ export default function BuildAddFood(props) {
                   width: "100%",
                 }}
               >
-                <Button onClick={{}}>
+                <Button onClick={setHandleData}>
                   <ShoppingCartIcon sx={{ fontSize: "2em", color: "#000" }} />
                 </Button>
               </Box>

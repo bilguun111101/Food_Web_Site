@@ -1,5 +1,16 @@
 import { useOrderContext } from "../../../../orderContext";
-import { CardMedia, Card, Button, Backdrop, Box, Input, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
+import {
+  CardMedia,
+  Card,
+  Button,
+  Backdrop,
+  Box,
+  Input,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import { Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -24,17 +35,30 @@ export default function SimpleBackdrop() {
   const handleWeek = (event) => {
     setWeek(event.target.value);
   };
-  const handleTime = e => {
+  const handleTime = (e) => {
     setDayTime(e.target.value);
-  }
+  };
   // =================
 
   const handleOrder = () => {
-    if(phone.current.value.length !== 8 || ports.current.value === '' || address.current.value === "" || dayTime === "" || week === "") {
-      alert("Мэдээлэл дутуу байна!!!")
+    if (
+      phone.current.value.length !== 8 ||
+      ports.current.value === "" ||
+      address.current.value === "" ||
+      dayTime === "" ||
+      week === ""
+    ) {
+      alert("Мэдээлэл дутуу байна!!!");
       return;
     }
-    setOrderDetail({...orderDetail, ["ports"]: ports.current.value, ["phone"]: phone.current.value, ["address"]: address.current.value, ["dayTime"]: dayTime, ["week"]: week})
+    setOrderDetail({
+      ...orderDetail,
+      ports: ports.current.value,
+      phone: phone.current.value,
+      address: address.current.value,
+      dayTime: dayTime,
+      week: week,
+    });
     setSetBool(true);
   };
 
@@ -46,6 +70,7 @@ export default function SimpleBackdrop() {
       ports.current.value = "";
       phone.current.value = "";
       address.current.value = "";
+      setWeek("");
     }
   }, [setBool]);
 
@@ -79,7 +104,9 @@ export default function SimpleBackdrop() {
               <Input placeholder="Гэрийн хаяг..." inputRef={address} />
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Хэд дэхь өдөр</InputLabel>
+                  <InputLabel id="demo-simple-select-label">
+                    Хэд дэхь өдөр
+                  </InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -99,7 +126,9 @@ export default function SimpleBackdrop() {
               </Box>
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Хэдий үед</InputLabel>
+                  <InputLabel id="demo-simple-select-label">
+                    Хэдий үед
+                  </InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"

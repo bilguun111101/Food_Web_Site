@@ -8,9 +8,17 @@ export const OrderContextProvider = (props) => {
   const { children } = props;
   const [orderDetail, setOrderDetail] = useState({});
   const [booleanDet, setBooleanDet] = useState(false);
+  const [addFood, setAddFood] = useState(false);
   return (
     <OrderContext.Provider
-      value={{ orderDetail, setOrderDetail, booleanDet, setBooleanDet }}
+      value={{
+        orderDetail,
+        setOrderDetail,
+        booleanDet,
+        setBooleanDet,
+        addFood,
+        setAddFood,
+      }}
     >
       {children}
     </OrderContext.Provider>

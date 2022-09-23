@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Button } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -9,11 +9,16 @@ import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import BackpackIcon from "@mui/icons-material/Backpack";
+import PriceChangeIcon from "@mui/icons-material/PriceChange";
+import PriceCheckIcon from "@mui/icons-material/PriceCheck";
 import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
 } from "./BuildOrderStyle";
+import { SetData } from "../../SetData";
+import { DeleteData } from "../../DeleteData";
 
 export default function CustomizedAccordions(props) {
   const [expanded, setExpanded] = useState(false);
@@ -24,6 +29,16 @@ export default function CustomizedAccordions(props) {
   const handleChange = () => {
     setExpanded(!expanded);
   };
+
+  const packedBtn = () => {
+    if (props.throwPlace !== "") {
+      SetData(props.throwPlace, propsy);
+      DeleteData(props.deletePlace, props.uid);
+      return;
+    }
+    DeleteData(props.deletePlace, props.uid);
+  };
+  const total = propsy.cost * +propsy.ports;
 
   return (
     <Accordion
@@ -77,6 +92,22 @@ export default function CustomizedAccordions(props) {
             <ListItem sx={{ gap: "1em" }}>
               <LocationOnIcon sx={{ color: "#09C900" }} />
               <ListItemText primary={propsy.address} />
+            </ListItem>
+            <ListItem sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Box alignItems="center" display="flex">
+                {props.throwPlace !== "" ? (
+                  <PriceChangeIcon />
+                ) : (
+                  <PriceCheckIcon />
+                )}
+                <ListItemText primary={`${total}₮`} />
+              </Box>
+            </ListItem>
+            <ListItem sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button onClick={packedBtn}>
+                <ListItemText primary={props.messBtn} />
+                <BackpackIcon />
+              </Button>
             </ListItem>
           </List>
         </Box>

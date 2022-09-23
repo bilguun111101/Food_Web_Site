@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import MediaCard from "./Card/Card";
 import Food from "./Foods/Food";
-import {
-  Box,
-  CircularProgress,
-} from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { styles } from "./HomeWithinStyle";
 import useGetData from "../TakeData";
 import SimpleBackdrop from "./Foods/Order/OrderFood";
 import { useSearchContext } from "../../searchContext";
 import AddFood from "./Foods/AddFood/AddFood";
 import _ from "lodash";
+import BuildAddFood from "./Foods/AddFood/AddFoodSection/BuildAddFood";
 
 const Home = (props) => {
   const { search } = useSearchContext();
@@ -22,7 +20,6 @@ const Home = (props) => {
     setAddBoolean(true);
   };
 
-  // const asd = _.find(saveData, { 'data': {'rate': 4.5}});
   return (
     <Box sx={styles.topBox}>
       <Box sx={styles.rightScroll}>
@@ -46,6 +43,7 @@ const Home = (props) => {
                 <Food key={idx} data={el.data} />
               ))}
             <SimpleBackdrop />
+            <BuildAddFood />
           </>
         )}
       </Box>
@@ -54,26 +52,3 @@ const Home = (props) => {
 };
 
 export default Home;
-
-
-
-
-
-// {/* <Box
-//       sx={styles.chartContainerPage}
-//     >
-//       <Grid sx={styles.chartContainer} container>
-//         <Grid item sx={styles.oneChart}>
-//           <Bar options={options} data={data} />
-//         </Grid>
-//         {/* <Grid item sx={styles.oneChart}>
-//           <Bar options={options} data={data} />
-//         </Grid>
-//         <Grid item sx={styles.oneChart}>
-//           <Bar options={options} data={data} />
-//         </Grid>
-//         <Grid item sx={styles.oneChart}>
-//           <Bar options={options} data={data} />
-//         </Grid> */}
-//       </Grid>
-//     </Box> */}

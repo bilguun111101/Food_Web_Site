@@ -6,7 +6,7 @@ const TopTittleContext = createContext();
 
 export const TopTittleProvider = (props) => {
   const { children } = props;
-  const [title, setTitle] = useState("Мэню");
+  const [title, setTitle] = useState("Нэвтрэх");
   const [loading, setLoading] = useState(false);
   return (
     <TopTittleContext.Provider value={{ title, setTitle, loading, setLoading }}>

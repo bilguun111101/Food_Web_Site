@@ -1,11 +1,12 @@
 import { Box } from "@mui/system";
 import React from "react";
 import { styles } from "../FoodStyle";
-// import { Card, Box, CardMedia, Typography, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { Card, CardMedia, Typography, Button } from "@mui/material";
+import { useOrderContext } from "../../../../orderContext";
 
 const AddFood = (props) => {
+  const { setAddFood } = useOrderContext();
   return (
     <Card sx={styles.cardSection}>
       <CardMedia image="" component="img" sx={styles.img} />
@@ -15,7 +16,7 @@ const AddFood = (props) => {
         </Typography>
         <Box sx={styles.addFood}>
           <Typography>
-            <Button onClick={props.add}>
+            <Button onClick={() => setAddFood(true)}>
               <AddIcon color="success" />
             </Button>
           </Typography>
