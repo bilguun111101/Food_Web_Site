@@ -25,12 +25,15 @@ import {
   getDownloadURL,
   uploadBytes,
 } from "firebase/storage";
+import { setDoc, doc } from "firebase/firestore";
+import { db } from "../../../../../firebase";
 import { storage } from "../../../../../firebase";
 
 export default function BuildAddFood(props) {
   const { addFood, setAddFood } = useOrderContext();
   const [imageUrl, setImageUrl] = useState();
   const [foodType, setFoodType] = useState("");
+  const [foodImg, setFoodImg] = useState("");
   const cost = useRef(null);
   const rate = useRef(null);
   const foodName = useRef(null);
@@ -40,29 +43,44 @@ export default function BuildAddFood(props) {
   };
 
   const handleImageURL = (e) => {
-    let file = e.target.files[0];
-    let reader = new FileReader();
+    var file = e.target.files[0];
+    var reader = new FileReader();
     reader.onload = function (event) {
       setImageUrl(event.target.result);
     };
-    setFoodType(file);
     reader.readAsDataURL(file);
+    setFoodImg((prevVal) => {
+      let prevValACopy = prevVal;
+      prevValACopy = e.target.files[0];
+      return (prevVal = prevValACopy);
+    });
   };
 
   const setHandleData = async () => {
-    console.log(foodType);
-    const storageRef = sRef(storage, `images/${foodName.current.value}`);
-    await uploadBytes(storageRef, foodType).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        // const data = {
-        //   image: url,
-        //   name: foodName.current.value,
-        //   cost: cost.current.value,
-        //   rate: rate.current.value,
-        // };
-        // SetData("foods", { image: url });
+    // console.log(foodType);
+    const storageRef = sRef(storage, `foods/${foodName.current.value}`);
+    await uploadBytes(storageRef, foodImg).then(async (snapshot) => {
+      await getDownloadURL(snapshot.ref).then(async (url) => {
+        console.log(url);
+        setDoc(doc(db, `foodslist/${foodName.current.value}`), {
+          name: foodName.current.value,
+          image: url,
+        });
       });
     });
+    // const storageRef = sRef(storage, `images/${foodName.current.value}`);
+    // await uploadBytes(storageRef, foodType).then((snapshot) => {
+    //   getDownloadURL(snapshot.ref).then((url) => {
+    //     console.log(url);
+    //     // const data = {
+    //     //   image: url,
+    //     //   name: foodName.current.value,
+    //     //   cost: cost.current.value,
+    //     //   rate: rate.current.value,
+    //     // };
+    //     // SetData("foods", { image: url });
+    //   });
+    // });
   };
 
   return (
